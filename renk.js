@@ -20,6 +20,13 @@ window.renk = (function ($) {
     init: function () {
     },
 
+    getPrototype: function(child, parent) {
+      var prototype = object(parent.prototype);
+      prototype.constructor = child;
+      child.prototype = prototype;
+      return child;
+    },
+
     /**
      * Returns the URL of the current page without params and trailing slash. Separated and made public for testing.
      * @returns {string}
@@ -37,10 +44,30 @@ window.renk = (function ($) {
       return window.location.href;
     }
   };
-
+  function object(o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+  };
   return pub;
 })(window.jQuery);
 
 window.jQuery(function () {
   window.renk.initModule(window.renk);
 });
+//
+// function Parent(name){
+//   this.name = name;
+//   this.colors = ['red', 'blue', 'green'];
+// };
+// Parent.prototype.getName = function(){
+//   console.log(this.name);
+// };
+// function Child(name,age){
+//   Parent.call(this, name);
+//   this.age = age;
+// }
+// renk.getPrototype(Child, Parent);
+// var c = new Child('kevin', '18');
+//
+// c.getName();
