@@ -5,11 +5,17 @@ window.renk.canvasPainter = (function($) {
     var pub = {
         isActive: true,
         canvas: null,
+        mouse:null,//鼠标位置
+        origin:{x: 0, y: 0}, //格線原點座標
+        scale:1,//缩放
         ctx: null,
         objects:{},
         init: function() {
             this.canvas = document.getElementById("canvas1");
             this.ctx = this.canvas.getContext('2d');
+            this.canvas.onmousemove = function(e){ onMouseMove(e)};
+
+
             var point = {p1:{x:1,y:1},p2:{x:100,y:100}};
             // this.ray({p1:{x:1,y:1},p2:{x:100,y:100}},2);
             var blackLine = new BlackLine();
@@ -25,6 +31,18 @@ window.renk.canvasPainter = (function($) {
           this.ctx.stroke();
         },
     };
+
+    function onMouseMove(e) {
+        var et = e;
+        if (e.changedTouches) {console.log(111);
+            var et = e.changedTouches[0];
+        }
+
+        pub.mouse = graphs.point((et.pageX - e.target.offsetLeft - pub.origin.x) / pub.scale, (et.pageY - e.target.offsetTop - pub.origin.y) / pub.scale); //滑鼠實際位置
+        console.log(pub.mouse);
+        // console.log(e.target.offsetLeft);
+        // console.log(origin.x);
+    }
 
     return pub;
 })(window.jQuery);

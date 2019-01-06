@@ -55,19 +55,3 @@ window.renk = (function ($) {
 window.jQuery(function () {
   window.renk.initModule(window.renk);
 });
-//
-// function Parent(name){
-//   this.name = name;
-//   this.colors = ['red', 'blue', 'green'];
-// };
-// Parent.prototype.getName = function(){
-//   console.log(this.name);
-// };
-// function Child(name,age){
-//   Parent.call(this, name);
-//   this.age = age;
-// }
-// renk.getPrototype(Child, Parent);
-// var c = new Child('kevin', '18');
-//
-// c.getName();
